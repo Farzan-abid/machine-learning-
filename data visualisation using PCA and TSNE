@@ -1,0 +1,32 @@
+import numpy as np
+import pandas as pd
+import sklearn as sk
+import tensorflow as tf
+
+
+from sklearn.datasets import make_blobs
+X, y = make_blobs(n_samples=200, 
+                  centers=2, 
+                  n_features=5, 
+                  cluster_std=1.5, 
+                  random_state=42)
+
+# Convert to DataFrame
+columns = ['Feature_1', 'Feature_2', 'Feature_3', 'Feature_4', 'Feature_5']
+df = pd.DataFrame(X, columns=columns)
+from sklearn.preprocessing import StandardScaler
+scaler=StandardScaler()
+scaled_data=scaler.fit_transform(df)
+from sklearn.decomposition import PCA
+pca =PCA(n_components=2)
+reduced_dimensionalty=pca.fit_transform(scaled_data)
+import matplotlib.pyplot as plt
+plt.scatter(reduced_dimensionalty[:,0],y=reduced_dimensionalty[:,1],c=y)
+plt.title("data visualisation of PCA ")
+plt.plot
+from sklearn.manifold import TSNE
+model=TSNE(n_components=2,perplexity=100, random_state=42, init='pca', learning_rate='auto')
+x_embedded=model.fit_transform(scaled_data)
+plt.scatter(x_embedded[:,0],x_embedded[:,1],c=y)
+plt.title("data visualisation of TSNE")
+plt.plot

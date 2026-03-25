@@ -1,0 +1,24 @@
+import numpy as np
+import pandas as pd
+import sklearn as sk
+
+data = {
+    'Height': [175, 162, 188, 170, 155, 182, 168, 178, 160, 185],
+    'Weight': [82, 60, 95, 70, 55, 88, 65, 80, 58, 92],
+    'Age': [45, 28, 34, 52, 22, 40, 31, 48, 25, 38],
+    'Systolic_BP': [128, 115, 135, 140, 110, 130, 118, 132, 112, 138],
+    'Diastolic_BP': [84, 76, 88, 92, 70, 85, 78, 86, 72, 90],
+    'Resting_HR': [72, 68, 75, 80, 64, 70, 66, 74, 62, 78]
+}
+data=pd.DataFrame(data)
+scaler=sk.preprocessing.StandardScaler()
+scaled_data=scaler.fit_transform(data)
+
+from sklearn.decomposition import PCA
+pca=PCA(n_components=2)
+compressed_data_Points=pca.fit_transform(scaled_data)
+
+#view compressed data
+print(compressed_data_Points)
+#view each components weightage
+print(pca.explained_variance_ratio_)
